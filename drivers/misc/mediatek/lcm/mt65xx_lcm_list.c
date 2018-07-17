@@ -237,8 +237,14 @@ extern LCM_DRIVER nt35510_dsi_cmd_lcm_drv;
 extern LCM_DRIVER rm69032_dsi_cmd_lcm_drv;
 extern LCM_DRIVER st7789h2_dbi_lcm_drv;
 
+extern LCM_DRIVER r61318_dsi_vdo_lcm_drv_truly;
+
 LCM_DRIVER* lcm_driver_list[] =
 {
+#if defined(R61318_DSI_VDO_TRULY)
+	&r61318_dsi_vdo_lcm_drv_truly,
+#endif
+
 #if defined(OTM1284A_HD720_DSI_VDO_TM)
 	&otm1284a_hd720_dsi_vdo_tm_lcm_drv,
 #endif
