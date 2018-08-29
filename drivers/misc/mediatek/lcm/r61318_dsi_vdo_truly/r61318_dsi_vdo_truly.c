@@ -166,20 +166,6 @@ static struct LCM_setting_table lcm_initialization_setting[] = {
     {REGFLAG_END_OF_TABLE, 0x00, {}}
 };*/
 
-
-static struct LCM_setting_table lcm_deep_sleep_mode_in_setting[] = {
-    // Display off sequence
-    {0x28, 0, {}},
-	{REGFLAG_DELAY, 20, {}},
-    // Sleep Mode On
-    {0x10, 0, {}},
-    {REGFLAG_DELAY, 120, {}},
-    {0xb0, 1, {0x00}},
-    {0xb1, 1, {0x01}},
-
-    {REGFLAG_END_OF_TABLE, 0x00, {}}
-};
-
 /*static u8 lcd_truly_r61318_cmd1[]={0xB0,0x00};  
 static u8 lcd_truly_r61318_cmd2[]={0xB1,0x01};
 static struct LCM_setting_table_common lcm_deep_sleep_in_setting_common[] = {
@@ -458,34 +444,6 @@ static void lcm_init(void)
 
 	printk("[kernel]:r61318_lcm_init end.\n");
 }
-static void lcm_suspend(void)
-{
-	printk("[kernel]:lcm_suspend start.\n");
-
-	push_table(lcm_deep_sleep_mode_in_setting, sizeof(lcm_deep_sleep_mode_in_setting) / sizeof(struct LCM_setting_table), 1);
-
-	MDELAY(20);
-	/*mt_set_gpio_out(GPIO_LCD_RST_PIN, GPIO_OUT_ZERO);
-	MDELAY(2);
-	mt_set_gpio_out(GPIO_LCD_VSN_PIN, GPIO_OUT_ZERO);
-	mt_set_gpio_out(GPIO_LCD_VSP_PIN, GPIO_OUT_ZERO);
-	MDELAY(4);*/
-	SET_RESET_PIN(0);
-	MDELAY(4); // 1ms
-#ifdef KERNEL_LCD
-	Lcd_Disable();
-#endif
-	printk("[kernel]:lcm_suspend end.\n");
-}
-
-
-static void lcm_resume(void)
-{
-	printk("[kernel]:lcm_resume start.\n");
-	lcm_init();
-	printk("[kernel]:lcm_resume end.\n");
-}
-
 
 //static u8 lcd_backlight_control_cmd[]={0x51,0x00};
 /*static struct LCM_setting_table_common lcd_backlight_control_cmds[] = {
@@ -523,8 +481,6 @@ LCM_DRIVER r61318_dsi_vdo_lcm_drv_truly =
     .set_util_funcs = lcm_set_util_funcs,
     .get_params     = lcm_get_params,
     .init           = lcm_init,
-    .suspend        = lcm_suspend,
-    .resume         = lcm_resume,
     .set_backlight	= lcm_setbacklight_truly,
     //.lcd_id_voltage = 0,
 };
