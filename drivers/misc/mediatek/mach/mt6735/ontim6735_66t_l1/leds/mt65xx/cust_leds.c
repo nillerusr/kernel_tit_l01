@@ -6,7 +6,7 @@
 #include <mach/upmu_common_sw.h>
 #include <mach/upmu_hw.h>
 
-//extern int mtkfb_set_backlight_level(unsigned int level);
+extern int mtkfb_set_backlight_level(unsigned int level);
 //extern int mtkfb_set_backlight_pwm(int div);
 extern int disp_bls_set_backlight(unsigned int level);
 
@@ -110,7 +110,7 @@ static struct cust_mt65xx_led cust_led_list[MT65XX_LED_TYPE_TOTAL] = {
 	{"jogball-backlight", MT65XX_LED_MODE_NONE, -1,{0}},
 	{"keyboard-backlight",MT65XX_LED_MODE_NONE, -1,{0}},
 	{"button-backlight",  MT65XX_LED_MODE_NONE, -1,{0}},
-	{"lcd-backlight",     MT65XX_LED_MODE_CUST_BLS_PWM, (long)disp_bls_set_backlight,{0}},
+    {"lcd-backlight",     MT65XX_LED_MODE_CUST_LCM, (long)mtkfb_set_backlight_level,{0}},
 };
 
 struct cust_mt65xx_led *get_cust_led_list(void)
