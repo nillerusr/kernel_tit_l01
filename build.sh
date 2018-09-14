@@ -1,9 +1,10 @@
 #!/bin/bash
-#export KBUILD_BUILD_USER=
-#export KBUILD_BUILD_HOST=
-export CROSS_COMPILE=/home/igor/android/kernel/aarch64-linux-android-4.9/bin/aarch64-linux-android-
-#export USE_CCACHE=1
+export KBUILD_BUILD_USER="nillerusr"
+export KBUILD_BUILD_HOST="Eclipse"
+export CROSS_COMPILE=aarch64-unknown-linux-gnu-
+export USE_CCACHE=1
 export ARCH=arm64 ARCH_MTK_PLATFORM=mt6735
 export TARGET=out
-make O=$TARGET ARCH=$ARCH CROSS_COMPILE=$CROSS_COMPILE tit_l01_defconfig
-make O=$TARGET ARCH=$ARCH CROSS_COMPILE=$CROSS_COMPILE -j4
+if ! [ -d $TARGET ];then mkdir $TARGET;fi
+if ! [ -f $TARGET/.config ];then make O=$TARGET ARCH=$ARCH tit_l01_defconfig;fi
+make O=$TARGET ARCH=$ARCH $1 $2
