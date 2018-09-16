@@ -15,13 +15,14 @@ etc
 Doesn't work:
 CAMERA
 MODEM
+LEDS
 etc
 
 Incorrectly works:
 ALSPS
 ACCELEROMETER
-POWER BUTTON
-VOLUME ROCKER
+WAKEUP
+HEADPHONES
 etc
 
 Need to edit codegen.dws & add missing drivers.
