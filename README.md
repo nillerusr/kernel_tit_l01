@@ -10,20 +10,25 @@ LCM
 TOUCHSCREEN
 SOUND
 WIFI
+LEDS
 etc
 
 Doesn't work:
 CAMERA
+FLASHLIGHT
 MODEM
-LEDS
 etc
 
 Incorrectly works:
 ALSPS
 ACCELEROMETER
+LIGHT AND PROXIMITY SENSORS
 WAKEUP
 HEADPHONES
 etc
+
+Unknown:
+FM RADIO
 
 Need to edit codegen.dws & add missing drivers.
 </pre>
