@@ -8,7 +8,6 @@ Huawei Enjoy 5/Huawei Y6 Pro, TIT-AL00 (chinese/belarusian version)
 Worked:
 LCM
 TOUCHSCREEN
-SOUND
 WIFI
 LEDS
 etc
@@ -20,11 +19,9 @@ MODEM
 etc
 
 Incorrectly works:
-ALSPS
-ACCELEROMETER
-LIGHT AND PROXIMITY SENSORS
+ALPS
 WAKEUP
-HEADPHONES
+SOUND
 etc
 
 Unknown:
