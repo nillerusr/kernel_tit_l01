@@ -621,8 +621,8 @@ static int mcube_write_log_data(struct i2c_client *client, u8 data[0x3f])
 
         memset(_pszBuffer, 0, _WRT_LOG_DATA_BUFFER_SIZE);
 
-        n += sprintf(_pszBuffer+n, "G-sensor RAW X = %d  Y = %d  Z = %d\n", raw_data[0] ,raw_data[1] ,raw_data[2]);
-        n += sprintf(_pszBuffer+n, "G-sensor RBM X = %d  Y = %d  Z = %d\n", rbm_data[0] ,rbm_data[1] ,rbm_data[2]);
+        n += sprintf(_pszBuffer+n, "G-sensor RAW X = %d  Y = %d  Z = %d\n", raw_data[1] ,raw_data[0] ,raw_data[2]);
+        n += sprintf(_pszBuffer+n, "G-sensor RBM X = %d  Y = %d  Z = %d\n", rbm_data[1] ,rbm_data[0] ,rbm_data[2]);
 
         for (i = 0; i < 64; i++)
         {
@@ -2041,7 +2041,7 @@ static int MC3XXX_ReadSensorData(struct i2c_client *pt_i2c_client, char *pbBuf, 
 	if(atomic_read(&_pt_i2c_obj->trace) & MCUBE_TRC_INFO) {
 	    GSE_LOG("[%s] accel data: %d, %d, %d!\n", __FUNCTION__, _naAccelData[MC3XXX_AXIS_X], _naAccelData[MC3XXX_AXIS_Y], _naAccelData[MC3XXX_AXIS_Z]);
 	}
-    sprintf(pbBuf, "%04x %04x %04x", _naAccelData[MC3XXX_AXIS_X], _naAccelData[MC3XXX_AXIS_Y], _naAccelData[MC3XXX_AXIS_Z]);
+    sprintf(pbBuf, "%04x %04x %04x", -_naAccelData[MC3XXX_AXIS_Y], -_naAccelData[MC3XXX_AXIS_X], -_naAccelData[MC3XXX_AXIS_Z]);
 
     return (MC3XXX_RETCODE_SUCCESS);
 }
@@ -2114,7 +2114,7 @@ static int _MC3XXX_ReadAverageData(struct i2c_client *client, char *buf)
 
     GSE_LOG("MC3XXX_ReadRawData mapdata1: %d, %d, %d!\n", acc[MC3XXX_AXIS_X], acc[MC3XXX_AXIS_Y], acc[MC3XXX_AXIS_Z]);
 
-    sprintf(buf, "%04x %04x %04x", acc[MC3XXX_AXIS_X], acc[MC3XXX_AXIS_Y], acc[MC3XXX_AXIS_Z]);
+    sprintf(buf, "%04x %04x %04x", -acc[MC3XXX_AXIS_Y], -acc[MC3XXX_AXIS_X], -acc[MC3XXX_AXIS_Z]);
 
     return 0;
 }
@@ -2154,8 +2154,8 @@ static int MC3XXX_ReadRawData(struct i2c_client *client, char *buf)
         }
         else
         {
-            sprintf(buf, "%04x %04x %04x", sensor_data[MC3XXX_AXIS_X],
-            sensor_data[MC3XXX_AXIS_Y], sensor_data[MC3XXX_AXIS_Z]);
+            sprintf(buf, "%04x %04x %04x", -sensor_data[MC3XXX_AXIS_Y],
+            -sensor_data[MC3XXX_AXIS_Y], -sensor_data[MC3XXX_AXIS_Z]);
         }
     }
     #endif
@@ -2193,8 +2193,8 @@ static int MC3XXX_ReadRBMData(struct i2c_client *client, char *buf)
     }
     else
     {
-        sprintf(buf, "%04x %04x %04x", data[MC3XXX_AXIS_X],
-            data[MC3XXX_AXIS_Y], data[MC3XXX_AXIS_Z]);
+        sprintf(buf, "%04x %04x %04x", -data[MC3XXX_AXIS_Y],
+            -data[MC3XXX_AXIS_X], -data[MC3XXX_AXIS_Z]);
 
     }
 
